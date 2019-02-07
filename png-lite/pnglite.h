@@ -27,11 +27,11 @@
 #ifndef _PNGLITE_H_
 #define _PNGLITE_H_
 
+#include <stdlib.h>
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
     /*
             Enumerations for pnglite.
             Negative numbers are error codes and 0 and up are okay responses.
@@ -196,7 +196,12 @@ extern "C"
 
             This function decodes the opened png file and stores the result in data. data should be big enough to hold
        the decoded png. Required size will be:
-            
+            
+
+
+
+
+
             > width*height*(bytes per pixel)
 
             Parameters:
@@ -217,7 +222,12 @@ extern "C"
 
             Parameters:
                     png - png to close.
-            
+            
+
+
+
+
+
             Returns:
                     PNG_NO_ERROR
     */
