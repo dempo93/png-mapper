@@ -30,3 +30,37 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio
+*.db
+/project/msvc/
+/tests/project/msvc/
+.vs
+
+# Codeblocks
+*.layout
+*.depend
+
+# Specific project binaries
+WallThicknessAnalysis
+project/codeblocks/bin/Release/WallThicknessAnalysis
+project/codeblocks/bin/Debug/WallThicknessAnalysis
+
+#QT Creator
+*.user
+*.autosave
+
+#Clion
+.idea/
+
+#Gedit backup files
+*.txt~
+*.cmake~
+*.cpp~
+*.h~
+*.hpp~
+
+cmake_build
+build_prod
+build
+build_debug
