@@ -6,7 +6,9 @@
 
 int main(int argc, const char *argv[])
 {
-    auto png= Io::import_from_path("/home/simone/3yourmind/png-mapper/test-files/png.png");
+    auto png= Io::import_from_path("/home/simone/3yourmind/png-mapper/test-files/sama.png");
+    if (png== nullptr)
+        throw std::runtime_error("could not open file");
     png->rawdata.resize(120000);
     for (int i = 0; i < png->w; i++)
     {
