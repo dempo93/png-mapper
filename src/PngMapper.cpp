@@ -4,12 +4,20 @@
 
 #include "Io.h"
 
+
+/**
+ * (x/(sqrt(x^2+y^2)+2),y/(sqrt(x^2+y^2)+2))
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, const char *argv[])
 {
-    auto png= Io::import_from_path("/home/simone/3yourmind/png-mapper/test-files/sama.png");
+    auto png= Io::import_from_path("/home/simone/3yourmind/png-mapper/test-files/sample.png");
     if (png== nullptr)
         throw std::runtime_error("could not open file");
-    png->rawdata.resize(120000);
+
+
     for (int i = 0; i < png->w; i++)
     {
         for (int j = 0; j < png->h; j++)

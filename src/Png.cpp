@@ -3,3 +3,5 @@
 //
 
 #include "Png.h"
+
+Vector2 Png::get_center() const { return Vector2(h / 2, w / 2); }

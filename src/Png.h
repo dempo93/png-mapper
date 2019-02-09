@@ -8,6 +8,12 @@
 #include <string>
 #include <vector>
 
+struct Vector2
+{
+    float x, y;
+    Vector2(float x, float y) : x(x), y(y) {}
+};
+
 class Png
 {
   public:
@@ -17,6 +23,9 @@ class Png
     uint32_t h{0};
     uint32_t w{0};
     uint32_t stride{0};
+
+  private:
+    Vector2 get_center() const;
 };
 
 #endif  // PNG_MAPPER_PNG_H
