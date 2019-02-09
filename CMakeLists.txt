@@ -29,8 +29,16 @@ set(DEPS
         )
 
 set(SOURCES
-        png-mapper.cpp)
+        src/PngMapper.cpp
+        src/Io.h
+        src/Io.cpp
+        src/Png.h
+        src/Png.cpp
+        )
+
 
 add_executable(png-mapper ${SOURCES} ${DEPS})
+
+target_include_directories(png-mapper PRIVATE png-lite zlib)
 
 target_compile_features(png-mapper PUBLIC cxx_std_17)
