@@ -10,9 +10,11 @@ void Mapper::HankaSimoneTransformation(double scale, const std::filesystem::path
                                        const std::filesystem::path& output)
 {
     auto input_png = Io::import_from_path(input);
+
     if (input_png == nullptr) throw std::runtime_error("could not open file");
     Mapper mapper(input_png);
     auto output_png = mapper.map(scale);
+
     Io::export_to_path(output, output_png);
 }
 
