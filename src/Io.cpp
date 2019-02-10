@@ -15,7 +15,6 @@ std::unique_ptr<Png> Io::import_from_path(const std::filesystem::path &path)
 
     png->rawdata.resize(png_raw->height * png_raw->width * png_raw->bpp);
     png_get_data(png_raw.get(), &png->rawdata[0]);
-
     png_close_file(png_raw.get());
 
     return std::move(png);
