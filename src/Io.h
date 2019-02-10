@@ -13,7 +13,7 @@ class Io
 {
   public:
     static std::unique_ptr<Png> import_from_path(const std::string &path);
-    static void export_to_path(const std::string &path, const std::unique_ptr<Png> png);
+    static void export_to_path(const std::string &path, std::unique_ptr<Png> png);
 };
 
 #endif  // PNG_MAPPER_IO_H
