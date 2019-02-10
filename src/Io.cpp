@@ -5,7 +5,8 @@
 #include <pnglite.h>
 #include "Io.h"
 
-std::unique_ptr<Png> Io::import_from_path(const std::string &path)
+
+std::unique_ptr<Png> Io::import_from_path(const std::filesystem::path &path)
 {
     png_init(nullptr, nullptr);
 
@@ -18,10 +19,10 @@ std::unique_ptr<Png> Io::import_from_path(const std::string &path)
     png_get_data(png_raw, &png->rawdata[0]);
     png_close_file(png_raw);
 
-    return png;
+    return std::move(png);
 }
 
-void Io::export_to_path(const std::string &path, std::unique_ptr<Png> png)
+void Io::export_to_path(const std::filesystem::path &path,const std::unique_ptr<Png>& png)
 {
     png_t png_raw;
     png_open_file_write(&png_raw, path.c_str());

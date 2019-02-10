@@ -7,14 +7,18 @@
 
 #include <memory>
 #include "Png.h"
+#include "Io.h"
+
 
 class Mapper
 {
   public:
-    explicit Mapper(std::unique_ptr<Png>& input_png);
-    std::unique_ptr<Png> map(double scale);
+    static void HankaSimoneTransformation(double scale, const std::filesystem::path& input,
+                                          const std::filesystem::path& output);
 
   private:
+    explicit Mapper(std::unique_ptr<Png>& input_png);
+    std::unique_ptr<Png> map(double scale);
 
     std::unique_ptr<Png> input_png;
     std::unique_ptr<Png> output_png;

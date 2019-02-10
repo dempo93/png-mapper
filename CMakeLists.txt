@@ -44,3 +44,5 @@ add_executable(png-mapper ${SOURCES} ${DEPS})
 target_include_directories(png-mapper PRIVATE png-lite zlib)
 
 target_compile_features(png-mapper PUBLIC cxx_std_17)
+
+target_link_libraries(png-mapper stdc++fs)

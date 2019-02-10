@@ -6,6 +6,16 @@
 #include <algorithm>
 #include "Mapper.h"
 
+void Mapper::HankaSimoneTransformation(double scale, const std::filesystem::path& input,
+                                       const std::filesystem::path& output)
+{
+    auto input_png = Io::import_from_path(input);
+    if (input_png == nullptr) throw std::runtime_error("could not open file");
+    Mapper mapper(input_png);
+    auto output_png = mapper.map(scale);
+    Io::export_to_path(output, output_png);
+}
+
 Mapper::Mapper(std::unique_ptr<Png>& input_png) : input_png(std::move(input_png))
 {
     output_png = std::make_unique<Png>(*(this->input_png));
@@ -34,8 +44,7 @@ void Mapper::copy_pixel_data(ulong pixel_index, ulong output_pixel_index) const
     const auto output_buffer_index = output_pixel_index * output_png->stride;
     const auto input_buffer_index = pixel_index * input_png->stride;
 
-    std::copy_n(&input_png->rawdata[input_buffer_index], input_png->stride,
-                &output_png->rawdata[output_buffer_index]);
+    std::copy_n(&input_png->rawdata[input_buffer_index], input_png->stride, &output_png->rawdata[output_buffer_index]);
 }
 
 ulong Mapper::get_transformed_pixel_index(ulong pixel_index) const
@@ -49,8 +58,8 @@ ulong Mapper::get_transformed_pixel_index(ulong pixel_index) const
 void Mapper::transform_pixel_coords(Vector2& vec) const
 {
     vec.translate(-input_png->get_center().x, -input_png->get_center().y)
-            .scale(scale)
-            .transform()
-            .scale(static_cast<double>(output_png->h) / 2, static_cast<double>(output_png->w) / 2)
-            .translate(input_png->get_center().x, input_png->get_center().y);
+        .scale(scale)
+        .transform()
+        .scale(static_cast<double>(output_png->h) / 2, static_cast<double>(output_png->w) / 2)
+        .translate(input_png->get_center().x, input_png->get_center().y);
 }
