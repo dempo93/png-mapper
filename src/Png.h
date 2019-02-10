@@ -32,13 +32,21 @@ struct Vector2
         y = y + trans_y;
         return *this;
     }
+    bool is_inside_circle(const Vector2& center, const float radius) const
+    {
+        return (x - center.x) * (x - center.x) + (y - center.y) * (y - center.y) < radius * radius;
+    }
+    bool is_outside_circle(const Vector2& center, const float radius) const
+    {
+        return (x - center.x) * (x - center.x) + (y - center.y) * (y - center.y) > radius * radius;
+    }
 };
 
 class Png
 {
   public:
-    Png(uint32_t h, uint32_t w, uint32_t stride) : h(h), w(w), stride(stride) {}
-    Png(const Png& other) : h(other.h), w(other.w), stride(other.stride) {}
+    Png(uint32_t h, uint32_t w, uint32_t stride, uint32_t color) : h(h), w(w), stride(stride), color(color) {}
+    Png(const Png& other) : h(other.h), w(other.w), stride(other.stride), color(other.color) {}
 
     std::vector<u_char> rawdata{};
     uint32_t h{0};
@@ -47,12 +55,13 @@ class Png
 
     uint32_t stride{0};
 
+    uint32_t color{0};
+
     Vector2 get_pixel_coords(const uint32_t buffer_index) const;
     uint32_t get_buffer_index(const Vector2& pixel_coords) const;
 
     Vector2 get_center() const;
 
-  private:
 };
 
 #endif  // PNG_MAPPER_PNG_H
