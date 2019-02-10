@@ -20,6 +20,10 @@ struct Vector2
         x = x_f;
         return *this;
     }
+    Vector2& scale(const float scale)
+    {
+        return this->scale(scale,scale);
+    }
     Vector2& scale(const float scale_x, const float scale_y)
     {
         x = x * scale_x;
