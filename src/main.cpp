@@ -14,6 +14,7 @@
  */
 int main(int argc, const char* argv[])
 {
+
     auto input_png = std::move(Io::import_from_path("/home/simone/Downloads/sample3.png"));
     if (input_png == nullptr) throw std::runtime_error("could not open file");
 

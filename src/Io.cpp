@@ -7,7 +7,6 @@
 
 std::unique_ptr<Png> Io::import_from_path(const std::string &path)
 {
-    // TODO some io checks
     png_init(nullptr, nullptr);
 
     auto png_raw = static_cast<png_t *>(malloc(sizeof(png_t)));

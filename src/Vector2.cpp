@@ -13,28 +13,28 @@ Vector2& Vector2::transform()
     return *this;
 }
 
-Vector2& Vector2::scale(const float scale) { return this->scale(scale, scale); }
+Vector2& Vector2::scale(const double scale) { return this->scale(scale, scale); }
 
-Vector2& Vector2::scale(const float scale_x, const float scale_y)
+Vector2& Vector2::scale(const double scale_x, const double scale_y)
 {
     x = x * scale_x;
     y = y * scale_y;
     return *this;
 }
 
-Vector2& Vector2::translate(const float trans_x, const float trans_y)
+Vector2& Vector2::translate(const double trans_x, const double trans_y)
 {
     x = x + trans_x;
     y = y + trans_y;
     return *this;
 }
 
-bool Vector2::is_inside_circle(const Vector2& center, const float radius) const
+bool Vector2::is_inside_circle(const Vector2& center, const double radius) const
 {
     return (x - center.x) * (x - center.x) + (y - center.y) * (y - center.y) < radius * radius;
 }
 
-bool Vector2::is_outside_circle(const Vector2& center, const float radius) const
+bool Vector2::is_outside_circle(const Vector2& center, const double radius) const
 {
     return (x - center.x) * (x - center.x) + (y - center.y) * (y - center.y) > radius * radius;
 }

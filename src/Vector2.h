@@ -7,14 +7,14 @@
 
 struct Vector2
 {
-    float x, y;
-    Vector2(float x, float y) : x(x), y(y) {}
+    double x, y;
+    Vector2(double x, double y) : x(x), y(y) {}
     Vector2& transform();
-    Vector2& scale(const float scale);
-    Vector2& scale(const float scale_x, const float scale_y);
-    Vector2& translate(const float trans_x, const float trans_y);
-    bool is_inside_circle(const Vector2& center, const float radius) const;
-    bool is_outside_circle(const Vector2& center, const float radius) const;
+    Vector2& scale(const double scale);
+    Vector2& scale(const double scale_x, const double scale_y);
+    Vector2& translate(const double trans_x, const double trans_y);
+    bool is_inside_circle(const Vector2& center, const double radius) const;
+    bool is_outside_circle(const Vector2& center, const double radius) const;
 };
 
 #endif  // PNG_MAPPER_VECTOR2_H
