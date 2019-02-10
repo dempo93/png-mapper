@@ -1,15 +1,18 @@
 //
-// Created by simone on 07.02.19.
+// Created by simone on 10.02.19.
 //
 
-#include <iostream>
+#ifndef PNG_MAPPER_MAPPER_H
+#define PNG_MAPPER_MAPPER_H
+
 #include <algorithm>
+#include <memory>
 #include <cassert>
-#include "Io.h"
+#include "Png.h"
 
 class Mapper
 {
-  public:
+public:
     Mapper(std::unique_ptr<Png>& input_png) : input_png(std::move(input_png))
     {
         output_png = std::make_unique<Png>(*(this->input_png));
@@ -53,30 +56,15 @@ class Mapper
     void transform_pixel_coords(Vector2& vec) const
     {
         vec.translate(-input_png->get_center().x, -input_png->get_center().y)
-            .scale(scale)
-            .transform()
-            .scale(static_cast<float>(output_png->h) / 2, static_cast<float>(output_png->w) / 2)
-            .translate(input_png->get_center().x, input_png->get_center().y);
+                .scale(scale)
+                .transform()
+                .scale(static_cast<float>(output_png->h) / 2, static_cast<float>(output_png->w) / 2)
+                .translate(input_png->get_center().x, input_png->get_center().y);
     }
 
-  private:
+private:
     std::unique_ptr<Png> input_png;
     std::unique_ptr<Png> output_png;
     float scale{1.f};
 };
-
-/**
- * (x/(sqrt(x^2+y^2)+2),y/(sqrt(x^2+y^2)+2))
- * @param argc
- * @param argv
- * @return
- */
-int main(int argc, const char* argv[])
-{
-    auto input_png = std::move(Io::import_from_path("/home/simone/Downloads/sample3.png"));
-    if (input_png == nullptr) throw std::runtime_error("could not open file");
-
-    Mapper mapper(input_png);
-    Io::export_to_path("/tmp/sample.png", mapper.map(0.1));
-    return 0;
-}
+#endif //PNG_MAPPER_MAPPER_H

@@ -29,12 +29,14 @@ set(DEPS
         )
 
 set(SOURCES
-        src/PngMapper.cpp
+        src/main.cpp
         src/Io.h
         src/Io.cpp
         src/Png.h
         src/Png.cpp
-        )
+        src/Vector2.h
+        src/Vector2.cpp
+        src/Mapper.cpp src/Mapper.h)
 
 
 add_executable(png-mapper ${SOURCES} ${DEPS})
