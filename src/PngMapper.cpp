@@ -3,7 +3,13 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "Io.h"
+
+class Mapper
+{
+
+};
 
 /**
  * (x/(sqrt(x^2+y^2)+2),y/(sqrt(x^2+y^2)+2))
@@ -18,35 +24,26 @@ int main(int argc, const char *argv[])
 
     auto out_png = std::make_unique<Png>(*input_png);
     out_png->rawdata.resize(input_png->rawdata.size());
+    out_png->generate_boundary_circle();
 
-    for (uint32_t i = 0; i < input_png->rawdata.size(); i += input_png->stride)
+    for (uint32_t pixel_index = 0; pixel_index < input_png->pixel_count(); ++pixel_index)
     {
-        auto vec = input_png->get_pixel_coords(i);
+        auto vec = input_png->get_pixel_coords(pixel_index)
+                       .translate(-input_png->get_center().x, -input_png->get_center().y)
+                       .scale(1.f, 1.f)
+                       .transform()
+                       .scale(static_cast<float>(out_png->h) / 2, static_cast<float>(out_png->w) / 2)
+                       .translate(input_png->get_center().x, input_png->get_center().y);
 
-        if (vec.is_inside_circle(out_png->get_center(), (std::min(out_png->h, out_png->w) / 2) + 1) &&
-            vec.is_outside_circle(out_png->get_center(), (std::min(out_png->h, out_png->w) / 2) - 1))
+        uint32_t output_pixel_index = input_png->get_pixel_index(vec);
+
+        if (output_pixel_index < out_png->pixel_count())
         {
-            out_png->rawdata[i] = 0xff;
-            out_png->rawdata[i + 1] = 0x00;
-            out_png->rawdata[i + 2] = 0xff;
-            out_png->rawdata[i + 2] = 0xff;
-        }
+            const auto output_buffer_index = output_pixel_index * out_png->stride;
+            const auto input_buffer_index = pixel_index * input_png->stride;
 
-        vec.translate(-input_png->get_center().x, -input_png->get_center().y)
-            .scale(1.f / 500, 1.f / 500)
-            .transform()
-            .scale(static_cast<float>(out_png->h) / 2, static_cast<float>(out_png->w) / 2)
-            .translate(input_png->get_center().x, input_png->get_center().y);
-
-        // std::cout << vec.x << "\t" << vec.y << std::endl;
-        uint32_t output_index = input_png->get_buffer_index(vec);
-
-        if (output_index < out_png->rawdata.size())
-        {
-            out_png->rawdata[output_index] = input_png->rawdata[i];
-            out_png->rawdata[output_index + 1] = input_png->rawdata[i + 1];
-            out_png->rawdata[output_index + 2] = input_png->rawdata[i + 2];
-            out_png->rawdata[output_index + 3] = input_png->rawdata[i + 3];
+            std::copy_n(&input_png->rawdata[input_buffer_index], input_png->stride,
+                        &out_png->rawdata[output_buffer_index]);
         }
         else
         {
